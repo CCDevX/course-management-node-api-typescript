@@ -1,0 +1,30 @@
+{
+  "name": "course-management-node-api-typescript",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/CCDevX/course-management-node-api-typescript#readme",
+  "bugs": {
+    "url": "https://github.com/CCDevX/course-management-node-api-typescript/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CCDevX/course-management-node-api-typescript.git"
+  },
+  "license": "MIT",
+  "author": "",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "build": "tsc",
+    "start-server": "node dist/server.js"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.2",
+    "@types/node": "^20.17.50",
+    "typescript": "^5.8.3",
+    "undici-types": "^7.10.0"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
