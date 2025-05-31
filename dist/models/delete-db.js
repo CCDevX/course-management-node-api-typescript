@@ -40,15 +40,16 @@ const data_source_1 = require("../data-source");
 const lesson_1 = require("./lesson");
 const course_1 = require("./course");
 const user_1 = require("./user");
+const typeorm_1 = require("typeorm");
 async function deleteDb() {
     await data_source_1.AppDataSource.initialize();
     console.log(`Database connection ready.`);
     console.log(`Clearing LESSONS table.`);
-    await data_source_1.AppDataSource.getRepository(lesson_1.Lesson).delete({});
+    await data_source_1.AppDataSource.getRepository(lesson_1.Lesson).delete({ id: (0, typeorm_1.Not)((0, typeorm_1.IsNull)()) });
     console.log(`Clearing COURSES table.`);
-    await data_source_1.AppDataSource.getRepository(course_1.Course).delete({});
+    await data_source_1.AppDataSource.getRepository(course_1.Course).delete({ id: (0, typeorm_1.Not)((0, typeorm_1.IsNull)()) });
     console.log(`Clearing USERS table.`);
-    await data_source_1.AppDataSource.getRepository(user_1.User).delete({});
+    await data_source_1.AppDataSource.getRepository(user_1.User).delete({ id: (0, typeorm_1.Not)((0, typeorm_1.IsNull)()) });
 }
 deleteDb()
     .then(() => {

@@ -7,6 +7,7 @@ import { AppDataSource } from "../data-source";
 import { Lesson } from "./lesson";
 import { Course } from "./course";
 import { User } from "./user";
+import { IsNull, Not } from "typeorm";
 
 async function deleteDb() {
   await AppDataSource.initialize();
@@ -15,15 +16,15 @@ async function deleteDb() {
 
   console.log(`Clearing LESSONS table.`);
 
-  await AppDataSource.getRepository(Lesson).delete({});
+  await AppDataSource.getRepository(Lesson).delete({ id: Not(IsNull()) });
 
   console.log(`Clearing COURSES table.`);
 
-  await AppDataSource.getRepository(Course).delete({});
+  await AppDataSource.getRepository(Course).delete({ id: Not(IsNull()) });
 
   console.log(`Clearing USERS table.`);
 
-  await AppDataSource.getRepository(User).delete({});
+  await AppDataSource.getRepository(User).delete({ id: Not(IsNull()) });
 }
 
 deleteDb()

@@ -26,6 +26,10 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
+], Course.prototype, "url", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
 ], Course.prototype, "title", void 0);
 __decorate([
     (0, typeorm_1.Column)(),

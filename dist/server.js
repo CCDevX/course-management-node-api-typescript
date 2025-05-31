@@ -17,10 +17,16 @@ const logger_1 = require("./logger");
 const data_source_1 = require("./data-source");
 const get_all_courses_1 = require("./routes/get-all-courses");
 const default_error_handler_1 = require("./middlewares/default-error-handler");
+const find_course_by_url_1 = require("./routes/find-course-by-url");
+const find_lessons_for_course_1 = require("./routes/find-lessons-for-course");
+const cors = require("cors");
 const app = (0, express_1.default)();
 function setupExpress() {
+    app.use(cors({ origin: true }));
     app.route("/").get(root_1.root);
     app.route("/api/courses").get(get_all_courses_1.getAllCourses);
+    app.route("/api/courses/:courseUrl").get(find_course_by_url_1.findCourseByUrl);
+    app.route("/api/courses/:courseId/lessons").get(find_lessons_for_course_1.findLessonsForCourse);
     app.use(default_error_handler_1.defaultErrorHandler);
 }
 function startServer() {
