@@ -19,14 +19,34 @@ const get_all_courses_1 = require("./routes/get-all-courses");
 const default_error_handler_1 = require("./middlewares/default-error-handler");
 const find_course_by_url_1 = require("./routes/find-course-by-url");
 const find_lessons_for_course_1 = require("./routes/find-lessons-for-course");
+const update_course_1 = require("./routes/update-course");
+const create_course_1 = require("./routes/create-course");
+const delete_course_1 = require("./routes/delete-course");
+const create_user_1 = require("./routes/create-user");
+const login_1 = require("./routes/login");
+const authentication_middleware_1 = require("./middlewares/authentication-middleware");
+const admin_only_middleware_1 = require("./middlewares/admin-only.middleware");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 const app = (0, express_1.default)();
 function setupExpress() {
     app.use(cors({ origin: true }));
+    app.use(bodyParser.json());
     app.route("/").get(root_1.root);
-    app.route("/api/courses").get(get_all_courses_1.getAllCourses);
-    app.route("/api/courses/:courseUrl").get(find_course_by_url_1.findCourseByUrl);
-    app.route("/api/courses/:courseId/lessons").get(find_lessons_for_course_1.findLessonsForCourse);
+    app.route("/api/courses").get(authentication_middleware_1.checkIfAuthenticated, get_all_courses_1.getAllCourses);
+    app
+        .route("/api/courses/:courseUrl")
+        .get(authentication_middleware_1.checkIfAuthenticated, find_course_by_url_1.findCourseByUrl);
+    app
+        .route("/api/courses/:courseId/lessons")
+        .get(authentication_middleware_1.checkIfAuthenticated, find_lessons_for_course_1.findLessonsForCourse);
+    app.route("/api/courses/:courseId").patch(authentication_middleware_1.checkIfAuthenticated, update_course_1.updateCourse);
+    app.route("/api/courses").post(authentication_middleware_1.checkIfAuthenticated, create_course_1.createCourse);
+    app
+        .route("/api/courses/:courseId")
+        .delete(authentication_middleware_1.checkIfAuthenticated, delete_course_1.deleteCourseAndLessons);
+    app.route("/api/users").post(authentication_middleware_1.checkIfAuthenticated, admin_only_middleware_1.checkIfAdmin, create_user_1.createUser);
+    app.route("/api/login").post(login_1.login);
     app.use(default_error_handler_1.defaultErrorHandler);
 }
 function startServer() {
